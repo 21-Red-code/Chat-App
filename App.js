@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 // importing screens we want to navigate between
 import Start from './components/Start';
 import Chat from './components/Chat';
+//import CustomActions from './CustomActions';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';

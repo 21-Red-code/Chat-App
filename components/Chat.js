@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import NetInfo from '@react-native-community/netinfo';
 import MapView from 'react-native-maps'
-//import CustomActions from './CustomActions'
+import CustomActions from './CustomActions'
 
 import firebase from 'firebase';
 import 'firebase/firestore';
@@ -226,6 +226,11 @@ export default class Chat extends React.Component {
         }
     }
 
+    // action button to access custom features
+  renderCustomActions(props) {
+    return <CustomActions {...props} />;
+  }
+
   // calback function for when user sends a message
     onSend(messages = []) {
         this.setState(previousState => ({
@@ -237,14 +242,16 @@ export default class Chat extends React.Component {
     }
 
     // hides inputbar when offline
-    renderInputToolbar = (props) => {
-        console.log("renderInputToolbar --> props", props.isConnected);
-        if (props.isConnected === false) {
-            return <InputToolbar {...props} />
+    renderInputToolbar(props) {
+        if (this.state.isConnected == false) {
         } else {
-            return <InputToolbar {...props} />;
+            return(
+                <InputToolbar
+                    {...props}
+                />
+            );
         }
-    };
+    }
 
 
   render() {
@@ -259,6 +266,7 @@ export default class Chat extends React.Component {
         onSend={messages => this.onSend(messages)}
         renderBubble={this.renderBubble.bind(this)}
         renderInputToolbar={this.renderInputToolbar.bind(this)}
+        renderActions={this.renderCustomActions}
         renderCustomView={this.renderCustomView}
         user={{
             _id: this.state.user._id,
